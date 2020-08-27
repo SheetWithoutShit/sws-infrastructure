@@ -99,7 +99,8 @@
     REDIS_PORT=6379
     
     SERVER_SECRET=
-    JWT_EXP_DAYS=7
+    ACCESS_JWT_EXP_DAYS=7
+    REFRESH_JWT_EXP_DAYS=30
     JWT_ALGORITHM=HS256
    ```
 6. Run docker compose up command: `docker-compose up`
