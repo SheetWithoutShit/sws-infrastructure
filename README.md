@@ -102,5 +102,9 @@
     ACCESS_JWT_EXP_DAYS=7
     REFRESH_JWT_EXP_DAYS=30
     JWT_ALGORITHM=HS256
+    
+    SMTP_LOGIN=sheetwithoutshit@gmail.com
+    SMTP_PASSWORD=
+
    ```
 6. Run docker compose up command: `docker-compose up`
