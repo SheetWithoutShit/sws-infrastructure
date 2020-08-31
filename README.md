@@ -82,6 +82,21 @@
         ports:
           - 5000:5000
         restart: always
+        
+       telegram:
+        container_name: sws-telegram
+        build: ./sws-telegram
+        command: python run.py
+        stdin_open: true
+        tty: true
+        env_file:
+          - .env
+        volumes:
+          - ./sws-telegram/telegram:/telegram
+        depends_on:
+          - postgres
+          - redis
+        restart: always
     
     volumes:
       postgres-data:
