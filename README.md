@@ -8,6 +8,7 @@
     git clone git@github.com:SheetWithoutShit/sws-server.git
     git clone git@github.com:SheetWithoutShit/sws-collector.git
     git clone git@github.com:SheetWithoutShit/sws-postgres.git
+    git clone git@github.com:SheetWithoutShit/sws-telegram.git
     ```
 4. Create docker-compose.yml with the following configurations:
     ```yaml
@@ -105,6 +106,5 @@
     
     SMTP_LOGIN=sheetwithoutshit@gmail.com
     SMTP_PASSWORD=
-
    ```
 6. Run docker compose up command: `docker-compose up`
