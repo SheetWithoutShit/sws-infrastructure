@@ -110,6 +110,7 @@
     POSTGRES_USER=
     POSTGRES_PASSWORD=
     POSTGRES_DB=
+    TZ=Europe/Kiev
     
     REDIS_HOST=redis
     REDIS_PORT=6379
