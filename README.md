@@ -22,6 +22,8 @@
           - .env
         environment:
           - NGROK_PORT=collector:5010
+        depends_on:
+          - ngrok
         ports:
           - 4040:4040
         restart: always
