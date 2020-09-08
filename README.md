@@ -35,7 +35,6 @@
         ports:
           - 5432
         volumes:
-          - ./sws-postgres:/docker-entrypoint-initdb.d/
           - postgres-data:/var/lib/postgresql/data/
         restart: always
     
