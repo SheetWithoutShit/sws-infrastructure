@@ -12,7 +12,7 @@
     ```
 4. Create docker-compose.yml with the following configurations:
     ```yaml
-   version: '3.7'
+    version: '3.7'
 
     services:
       ngrok:
@@ -23,11 +23,11 @@
         environment:
           - NGROK_PORT=collector:5010
         depends_on:
-          - ngrok
+          - collector
         ports:
           - 4040:4040
         restart: always
-    
+
       postgres:
         image: postgres:10
         container_name: sws-postgres
@@ -39,7 +39,7 @@
         volumes:
           - postgres-data:/var/lib/postgresql/data/
         restart: always
-    
+
       redis:
         image: redis:5
         container_name: sws-redis
@@ -48,7 +48,7 @@
         env_file:
           - .env
         restart: always
-    
+
       collector:
         container_name: sws-collector
         build: ./sws-collector
@@ -65,7 +65,7 @@
         ports:
           - 5010:5010
         restart: always
-    
+
       server:
         container_name: sws-server
         build: ./sws-server
@@ -83,8 +83,8 @@
         ports:
           - 5000:5000
         restart: always
-        
-       telegram:
+
+      telegram:
         container_name: sws-telegram
         build: ./sws-telegram
         command: python run.py
@@ -98,7 +98,7 @@
           - postgres
           - redis
         restart: always
-    
+
     volumes:
       postgres-data:
    ```
