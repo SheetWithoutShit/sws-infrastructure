@@ -135,3 +135,8 @@
     TELEGRAM_BOT_TOKEN=
    ```
 6. Run docker compose up command: `docker-compose up`
+7. Run alembic migration:
+    ```shell script
+    docker exec -it sws-server /bin/bash
+    export PYTHONPATH=${PYTHONPATH}:/server
+    alembic upgrade head
