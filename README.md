@@ -104,7 +104,7 @@
    ```
 5. Create .env file with the following variables:
     ```shell script
-    MONOBANK_WEBHOOK_SECRET=
+    MONOBANK_WEBHOOK_SECRET=secretherekey
 
     POSTGRES_HOST=postgres
     POSTGRES_PORT=5432
@@ -112,16 +112,26 @@
     POSTGRES_PASSWORD=
     POSTGRES_DB=
     TZ=Europe/Kiev
-    
+
     REDIS_HOST=redis
     REDIS_PORT=6379
-    
-    JWT_SECRET_KEY=
+
+    COLLECTOR_HOST=collector
+
+    SERVER_HOST=server
+
     ACCESS_JWT_EXP_DAYS=7
     REFRESH_JWT_EXP_DAYS=30
     JWT_ALGORITHM=HS256
-    
+    JWT_SECRET_KEY=secretherekey
+
     SMTP_LOGIN=sheetwithoutshit@gmail.com
     SMTP_PASSWORD=
+
+    AWS_DEFAULT_REGION=eu-north-1
+    AWS_ACCESS_KEY_ID=
+    AWS_SECRET_ACCESS_KEY=
+
+    TELEGRAM_BOT_TOKEN=
    ```
 6. Run docker compose up command: `docker-compose up`
