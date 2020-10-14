@@ -1,14 +1,14 @@
-# Sheet Without Shit. Infrastructure
+# Spentless. Infrastructure
 
 ### How to run development env?
-1. Create new directory: sws-infrastructure.
-2. Go to created directory: `cd sws-infrastructure`
-3. Clone SWS services:
+1. Create new directory: spentless.
+2. Go to created directory: `cd spentless`
+3. Clone spentless services:
     ```shell script
-    git clone git@github.com:SheetWithoutShit/sws-server.git
-    git clone git@github.com:SheetWithoutShit/sws-collector.git
-    git clone git@github.com:SheetWithoutShit/sws-postgres.git
-    git clone git@github.com:SheetWithoutShit/sws-telegram.git
+    git clone git@github.com:SpentlessInc/spentless-server.git
+    git clone git@github.com:SpentlessInc/spentless-collector.git
+    git clone git@github.com:SpentlessInc/spentless-postgres.git
+    git clone git@github.com:SpentlessInc/spentless-telegram.git
     ```
 4. Create docker-compose.yml with the following configurations:
     ```yaml
@@ -16,7 +16,7 @@
 
     services:
       ngrok:
-        container_name: sws-ngrok
+        container_name: spentless-ngrok
         image: wernight/ngrok
         env_file:
           - .env
@@ -30,7 +30,7 @@
 
       postgres:
         image: postgres:10
-        container_name: sws-postgres
+        container_name: spentless-postgres
         working_dir: /docker-entrypoint-initdb.d
         env_file:
           - .env
@@ -42,7 +42,7 @@
 
       redis:
         image: redis:5
-        container_name: sws-redis
+        container_name: spentless-redis
         ports:
           - 6379
         env_file:
@@ -50,15 +50,15 @@
         restart: always
 
       collector:
-        container_name: sws-collector
-        build: ./sws-collector
+        container_name: spentless-collector
+        build: ./spentless-collector
         command: adev runserver run.py --app-factory=init_app --port=5010
         stdin_open: true
         tty: true
         env_file:
           - .env
         volumes:
-          - ./sws-collector/collector:/collector
+          - ./spentless-collector/collector:/collector
         depends_on:
           - postgres
           - redis
@@ -67,15 +67,15 @@
         restart: always
 
       server:
-        container_name: sws-server
-        build: ./sws-server
+        container_name: spentless-server
+        build: ./spentless-server
         command: adev runserver run.py --app-factory=init_app --port=5000
         stdin_open: true
         tty: true
         env_file:
           - .env
         volumes:
-          - ./sws-server/server:/server
+          - ./spentless-server/server:/server
         depends_on:
           - postgres
           - redis
@@ -85,15 +85,15 @@
         restart: always
 
       telegram:
-        container_name: sws-telegram
-        build: ./sws-telegram
+        container_name: spentless-telegram
+        build: ./spentless-telegram
         command: python run.py
         stdin_open: true
         tty: true
         env_file:
           - .env
         volumes:
-          - ./sws-telegram/telegram:/telegram
+          - ./spentless-telegram/telegram:/telegram
         depends_on:
           - postgres
           - redis
@@ -137,6 +137,6 @@
 6. Run docker compose up command: `docker-compose up`
 7. Run alembic migration:
     ```shell script
-    docker exec -it sws-server /bin/bash
+    docker exec -it spentless-server /bin/bash
     export PYTHONPATH=${PYTHONPATH}:/server
     alembic upgrade head
