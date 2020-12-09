@@ -7,7 +7,6 @@
     ```shell script
     git clone git@github.com:SpentlessInc/spentless-server.git
     git clone git@github.com:SpentlessInc/spentless-collector.git
-    git clone git@github.com:SpentlessInc/spentless-postgres.git
     git clone git@github.com:SpentlessInc/spentless-telegram.git
     ```
 4. Create docker-compose.yml with the following configurations:
@@ -72,10 +71,13 @@
         command: adev runserver run.py --app-factory=init_app --port=5000
         stdin_open: true
         tty: true
+        environment:
+          - PYTHONPATH=$PYTHONPATH:/server
         env_file:
           - .env
         volumes:
           - ./spentless-server/server:/server
+          - ./spentless-server/scripts:/scripts
         depends_on:
           - postgres
           - redis
@@ -87,7 +89,7 @@
       telegram:
         container_name: spentless-telegram
         build: ./spentless-telegram
-        command: python run.py
+        command: adev runserver run.py --app-factory=init_app --port=5020
         stdin_open: true
         tty: true
         env_file:
@@ -113,8 +115,7 @@
     POSTGRES_DB=
     TZ=Europe/Kiev
 
-    REDIS_HOST=redis
-    REDIS_PORT=6379
+    REDIS_URL=redis://redis:6379
 
     COLLECTOR_HOST=collector
 
@@ -125,12 +126,8 @@
     JWT_ALGORITHM=HS256
     JWT_SECRET_KEY=secretherekey
 
-    SMTP_LOGIN=sheetwithoutshit@gmail.com
+    SMTP_LOGIN=spentless.app@gmail.com
     SMTP_PASSWORD=
-
-    AWS_DEFAULT_REGION=eu-north-1
-    AWS_ACCESS_KEY_ID=
-    AWS_SECRET_ACCESS_KEY=
 
     TELEGRAM_BOT_TOKEN=
    ```
@@ -140,5 +137,5 @@
     docker exec -it spentless-server /bin/bash
     export PYTHONPATH=${PYTHONPATH}:/server
     alembic upgrade head
-    python seed.py
+    python scripts/database_seed.py
     ```
